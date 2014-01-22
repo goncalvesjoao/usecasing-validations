@@ -29,7 +29,7 @@ module UseCase
       def validate(record)
         attributes.each do |attribute|
           value = record.send(attribute)
-          next if (value.nil? && options[:allow_nil]) || (value.blank? && options[:allow_blank])
+          next if (value.nil? && options[:allow_nil]) || (HelperMethods._blank?(value) && options[:allow_blank])
           validate_each(record, attribute, value)
         end
       end

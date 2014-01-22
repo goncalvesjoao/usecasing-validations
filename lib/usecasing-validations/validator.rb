@@ -13,29 +13,40 @@ module UseCase
     include Validations::Base
     
     def perform
-      all_validations_green = [*target].map do |object_to_validate|
-        if object_to_validate.marked_for_destruction?
-          true
-        else
-          valid?(object_to_validate)
-        end
-      end.all?
+      targets = [*target]
+
+      if targets.empty?
+        all_validations_green = false
+      else
+        all_validations_green = targets.map do |object_to_validate|
+          if self.class._marked_for_destruction?(object_to_validate)
+            true
+          else
+            valid?(object_to_validate)
+          end
+        end.all?
+      end
 
       failure(self.class.to_s.downcase.to_sym, :failed) unless all_validations_green
     end
 
+
     protected ########################## PROTECTED ###################
 
     def self.target(object_sym)
-      if object_sym.is_a?(Symbol)
+      # if object_sym.is_a?(Symbol)
         define_method(:target) { context.send(object_sym) }
-      else
-        binding.pry
-      end
+      # elsif object_sym.respond_to?(:call)
+      #   define_method(:target) { object_sym.call }
+      # end
     end
 
     def valid?(object_to_validate)
-      object_to_validate.extend(Validations::IncorporateErrors) unless object_to_validate.respond_to?(:errors)
+      if !object_to_validate.respond_to?(:errors)
+        object_to_validate.instance_eval do
+          def errors; @errors ||= Validations::Errors.new(self); end
+        end
+      end
 
       run_validations!(target)
 

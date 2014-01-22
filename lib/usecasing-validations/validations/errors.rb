@@ -1,14 +1,6 @@
 module UseCase
   module Validations
 
-    module IncorporateErrors
-
-      def error
-        @errors ||= Errors.new(self)
-      end
-
-    end
-
     class Errors
       include Enumerable
 
@@ -282,7 +274,8 @@ module UseCase
       #
       #   person.errors.full_message(:name, 'is invalid') # => "Name is invalid"
       def full_message(attribute, message)
-        return message if attribute == :base
+        return message if attribute == :base || !@base.class.respond_to?(:model_name)
+
         attr_name = attribute.to_s.tr('.', '_').humanize
         attr_name = @base.class.human_attribute_name(attribute, default: attr_name)
         I18n.t(:"errors.format", {
@@ -319,6 +312,10 @@ module UseCase
       def generate_message(attribute, type = :invalid, options = {})
         type = options.delete(:message) if options[:message].is_a?(Symbol)
 
+        if !@base.class.respond_to?(:model_name)
+          return options.key?(:message) ? options[:message] : type
+        end
+
         if @base.class.respond_to?(:i18n_scope)
           defaults = @base.class.lookup_ancestors.map do |klass|
             [ :"#{@base.class.i18n_scope}.errors.models.#{klass.model_name.i18n_key}.attributes.#{attribute}.#{type}",
@@ -337,7 +334,7 @@ module UseCase
         defaults.flatten!
 
         key = defaults.shift
-        value = (attribute != :base ? @base.send(:read_attribute_for_validation, attribute) : nil)
+        value = (attribute != :base ? @base.send(attribute) : nil)
 
         options = {
           default: defaults,
@@ -352,7 +349,7 @@ module UseCase
     private
       def normalize_message(attribute, message, options)
         message ||= :invalid
-
+        
         case message
         when Symbol
           generate_message(attribute, message, HelperMethods._except(options, *CALLBACKS_OPTIONS))

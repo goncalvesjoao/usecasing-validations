@@ -5,6 +5,18 @@ module UseCase
 
       extend self
 
+      def _blank?(object)
+        if object.is_a?(String)
+          object !~ /[^[:space:]]/
+        else
+          object.respond_to?(:empty?) ? object.empty? : !object
+        end
+      end
+
+      def _marked_for_destruction?(object)
+        object.respond_to?(:marked_for_destruction?) ? object.marked_for_destruction? : false
+      end
+
       def _merge_attributes(attr_names)
         options = _symbolyze_keys(_extract_options!(attr_names))
         attr_names.flatten!
@@ -29,7 +41,7 @@ module UseCase
 
       def _except(hash, *keys)
         _hash = hash.dup
-        _hash.keys.each { |key| _hash.delete(key) }
+        keys.each { |key| _hash.delete(key) }
         _hash
       end
 

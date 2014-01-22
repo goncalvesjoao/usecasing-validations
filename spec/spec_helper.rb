@@ -2,8 +2,10 @@ require 'usecasing-validations'
 
 require 'pry'
 
-require 'support/models/post'
-require 'support/usecases/validates_post'
+require 'support/models/ruby_post'
+require 'support/models/ruby_user'
+require 'support/usecases/validate_post'
+require 'support/usecases/validate_user'
 
 RSpec.configure do |config|
   config.treat_symbols_as_metadata_keys_with_true_values = true
