@@ -48,9 +48,9 @@ module UseCase
         end
       end
 
-      run_validations!(target)
+      run_validations!(object_to_validate)
 
-      target.errors.empty?
+      object_to_validate.errors.empty?
     end
 
   end

@@ -3,7 +3,9 @@ require 'usecasing-validations'
 require 'pry'
 
 require 'support/models/ruby_post'
+require 'support/models/ruby_post_with_comments'
 require 'support/models/ruby_user'
+require 'support/usecases/validate_comments'
 require 'support/usecases/validate_post'
 require 'support/usecases/validate_user'
 

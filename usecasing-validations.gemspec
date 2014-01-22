@@ -4,7 +4,7 @@ $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
 
 Gem::Specification.new do |gem|
   gem.name          = "usecasing-validations"
-  gem.version       = '0.0.1'
+  gem.version       = '0.1.0'
   gem.authors       = ["João Gonçalves"]
   gem.email         = ["goncalves.joao@gmail.com"]
   gem.description   = %q{UseCase Gem Extention to add Rails like validations}
