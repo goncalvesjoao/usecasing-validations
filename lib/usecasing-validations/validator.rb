@@ -1,3 +1,11 @@
+require "usecasing-validations/validations/base"
+require "usecasing-validations/validations/errors"
+require "usecasing-validations/validations/helper_methods"
+require "usecasing-validations/validations/validator"
+
+require "usecasing-validations/validations/presence_validator"
+require "usecasing-validations/validations/format_validator"
+
 module UseCase
   
   class Validator < Base

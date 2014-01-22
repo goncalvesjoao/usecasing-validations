@@ -5,7 +5,7 @@ module UseCase
       attr_reader :options
 
       def initialize(options = {})
-        @options  = options.except(:class).freeze
+        @options  = HelperMethods._except(options, :class).freeze
       end
 
       # Override this method in subclasses with validation logic, adding errors

@@ -29,7 +29,7 @@ module UseCase
         end
 
         def validate(*args, &block)
-          options = args.extract_options!
+          options = _extract_options!(args)
           args << options
           validates_with(*args, &block)
         end
@@ -38,6 +38,8 @@ module UseCase
           options = _extract_options!(args)
           options[:class] = self
 
+          binding.pry
+          
           args.each do |klass|
             validator = klass.new(options, &block)
 

@@ -355,7 +355,7 @@ module UseCase
 
         case message
         when Symbol
-          generate_message(attribute, message, options.except(*CALLBACKS_OPTIONS))
+          generate_message(attribute, message, HelperMethods._except(options, *CALLBACKS_OPTIONS))
         when Proc
           message.call
         else

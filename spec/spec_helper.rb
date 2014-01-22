@@ -1,4 +1,6 @@
-require 'usecasing'
+require 'usecasing-validations'
+
+require 'pry'
 
 require 'support/models/post'
 require 'support/usecases/validates_post'

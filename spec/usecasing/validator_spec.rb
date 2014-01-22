@@ -2,8 +2,8 @@ require 'spec_helper'
 
 describe UseCase::Validator do 
 
-  it "#methods_to_hash" do
-    testing_data = { title: "title", body: "body", email: "fake" }
+  it "'validates_presence_of' on a ruby object" do
+    testing_data = { title: "title", body: "body" }
 
     object_test1 = Post.new(testing_data)
 
