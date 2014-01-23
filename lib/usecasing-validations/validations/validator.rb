@@ -13,7 +13,6 @@ module UseCase
       def validate(record)
         raise NotImplementedError, "Subclasses must implement a validate(record) method."
       end
-
     end
 
     class EachValidator < Validator
@@ -41,6 +40,21 @@ module UseCase
       end
 
       def check_validity!; end
+    end
+
+    class CustomValidator < Validator
+      attr_reader :methods
+
+      def initialize(methods, options)
+        @methods = methods
+        super
+      end
+
+      def validate(record)
+        [*methods].map do |method|
+          options[:context].send(method, record)
+        end.all?
+      end
     end
 
   end

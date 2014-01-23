@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe ValidateComments do 
 
-  it "'#validates_presence_of' on a ruby object", current: true do
+  it "Multiple validations on a list of ruby objects: 'RubyComment' inside another ruby object: 'RubyPost'", current: true do
 
     post = RubyPostWithComments.new([{ title: "title1", email: "teste1@gmail.com" }, { title: 'title2', email: 'teste2@gmail.com' }])
     context = ValidateComments.perform(post: post)

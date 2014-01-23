@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    usecasing-validations (0.1.1)
+    usecasing-validations (0.2.0)
       usecasing (= 0.1.4)
 
 GEM

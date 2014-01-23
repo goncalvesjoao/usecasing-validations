@@ -10,11 +10,20 @@ module UseCase
 
       def run_validations!(object_to_validate)
         self.class.validators.each do |validator|
-          if validator.options.key?(:if)
-            next unless send(validator.options[:if])
-          end
-
+          next unless success_of_option_if(validator)
           validator.validate(object_to_validate)
+        end
+      end
+
+      protected #################### PROTECTED ######################
+
+      def success_of_option_if(validator)
+        return true unless validator.options.key?(:if)
+
+        if validator.options[:if].is_a?(Proc)
+          self.instance_exec(&validator.options[:if])
+        else
+          send(validator.options[:if])
         end
       end
 
@@ -30,8 +39,9 @@ module UseCase
 
         def validate(*args, &block)
           options = _extract_options!(args)
-          args << options
-          validates_with(*args, &block)
+          # options[:context] ||= 
+
+          _validators[nil] << CustomValidator.new(args, options)
         end
 
         def validates_with(*args, &block)
@@ -48,8 +58,6 @@ module UseCase
             else
               _validators[nil] << validator
             end
-
-            # validate(validator, options)
           end
         end
 
