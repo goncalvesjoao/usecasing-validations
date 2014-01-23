@@ -45,6 +45,10 @@ module UseCase
         _hash
       end
 
+      def _call_proc_or_method(base, proc_or_method)
+        proc_or_method.is_a?(Proc) ? base.instance_exec(&proc_or_method) : base.send(proc_or_method)
+      end
+
     end
 
   end

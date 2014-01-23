@@ -24,12 +24,7 @@ module UseCase
 
       def success_of_option_if(validator)
         return true unless validator.options.key?(:if)
-
-        if validator.options[:if].is_a?(Proc)
-          self.instance_exec(&validator.options[:if])
-        else
-          send(validator.options[:if])
-        end
+        HelperMethods._call_proc_or_method(self, validator.options[:if])
       end
 
       def valid?(object_to_validate)
