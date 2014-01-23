@@ -24,11 +24,11 @@ describe ValidateComments do
     comment1.errors.empty?.should == true
 
     comment2 = post.comments[1]
-    comment2.errors.include?(:email)
+    comment2.errors.added?(:email, "invalid format!").should == true
     comment2.errors.size.should == 1
 
     comment3 = post.comments[2]
-    comment3.errors.include?(:title)
+    comment3.errors.added?(:title, "can't be blank!").should == true
     comment3.errors.size.should == 1
 
   end
@@ -41,7 +41,7 @@ describe ValidateComments do
     context.success?.should == false
 
     comment1 = post.comments[0]
-    comment1.errors.include?(:title)
+    comment1.errors.added?(:title, :too_short).should == true
     comment1.errors.size.should == 1
 
   end
@@ -54,11 +54,11 @@ describe ValidateComments do
     context.success?.should == false
 
     comment1 = post.comments[0]
-    comment1.errors.include?(:title)
+    comment1.errors.added?(:title, :taken).should == true
     comment1.errors.size.should == 1
 
     comment2 = post.comments[1]
-    comment2.errors.include?(:title)
+    comment2.errors.added?(:title, :taken).should == true
     comment2.errors.size.should == 1
 
   end
@@ -71,12 +71,12 @@ describe ValidateComments do
     context.success?.should == false
 
     comment1 = post.comments[0]
-    comment1.errors.include?(:title)
+    comment1.errors.added?(:title, 'custom_validation1').should == true
     comment1.errors.size.should == 1
 
     comment2 = post.comments[1]
-    comment2.errors.include?(:title)
-    comment2.errors.include?(:email)
+    comment2.errors.added?(:title, 'custom_validation1').should == true
+    comment2.errors.added?(:email, 'custom_validation2').should == true
     comment2.errors.size.should == 2
 
   end
