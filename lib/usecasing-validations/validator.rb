@@ -33,12 +33,14 @@ module UseCase
 
     protected ########################## PROTECTED ###################
 
-    def self.target(object_sym)
-      # if object_sym.is_a?(Symbol)
-        define_method(:target) { context.send(object_sym) }
-      # elsif object_sym.respond_to?(:call)
-      #   define_method(:target) { object_sym.call }
-      # end
+    def self.target(object_sym, options = {})
+      define_method(:target) do
+        if options.key?(:in)
+          context.send(options[:in]).send(object_sym)
+        else
+          context.send(object_sym)
+        end
+      end
     end
 
     def valid?(object_to_validate)
