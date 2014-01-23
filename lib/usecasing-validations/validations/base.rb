@@ -11,7 +11,12 @@ module UseCase
       def run_validations!(object_to_validate)
         self.class.validators.each do |validator|
           next unless success_of_option_if(validator)
-          validator.validate(object_to_validate)
+
+          if validator.method(:validate).arity == 2
+            validator.validate(object_to_validate, self)
+          else
+            validator.validate(object_to_validate)
+          end
         end
       end
 
@@ -38,10 +43,7 @@ module UseCase
         end
 
         def validate(*args, &block)
-          options = _extract_options!(args)
-          # options[:context] ||= 
-
-          _validators[nil] << CustomValidator.new(args, options)
+          _validators[nil] << CustomValidator.new(args, &block)
         end
 
         def validates_with(*args, &block)

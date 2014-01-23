@@ -4,6 +4,7 @@ require "usecasing-validations/validations/helper_methods"
 require "usecasing-validations/validations/validator"
 
 require "usecasing-validations/validations/presence_validator"
+require "usecasing-validations/validations/length_validator"
 require "usecasing-validations/validations/format_validator"
 
 module UseCase

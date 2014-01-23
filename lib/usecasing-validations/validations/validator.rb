@@ -45,14 +45,15 @@ module UseCase
     class CustomValidator < Validator
       attr_reader :methods
 
-      def initialize(methods, options)
-        @methods = methods
-        super
+      def initialize(args)
+        options = HelperMethods._extract_options!(args)
+        @methods = args
+        super(options)
       end
 
-      def validate(record)
+      def validate(record, base)
         [*methods].map do |method|
-          options[:context].send(method, record)
+          base.send(method, record)
         end.all?
       end
     end
