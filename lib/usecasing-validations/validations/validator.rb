@@ -3,6 +3,7 @@ module UseCase
     
     class Validator
       attr_reader :options
+      attr_accessor :base
 
       def initialize(options = {})
         @options  = HelperMethods._except(options, :class).freeze
@@ -51,7 +52,7 @@ module UseCase
         super(options)
       end
 
-      def validate(record, base)
+      def validate(record)
         [*methods].map do |method|
           base.send(method, record)
         end.all?

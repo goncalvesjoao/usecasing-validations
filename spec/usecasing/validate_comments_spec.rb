@@ -46,9 +46,26 @@ describe ValidateComments do
 
   end
 
+  it "#validates_uniqueness_of on multiple instances of 'RubyComment' inside a 'RubyPost'" do
+
+    post = RubyPostWithComments.new([{ title: 'title1', email: 'teste1@gmail.com' }, { title: 'title1', email: 'teste2@gmail.com' }])
+    context = ValidateComments.perform(post: post)
+
+    context.success?.should == false
+
+    comment1 = post.comments[0]
+    comment1.errors.include?(:title)
+    comment1.errors.size.should == 1
+
+    comment2 = post.comments[1]
+    comment2.errors.include?(:title)
+    comment2.errors.size.should == 1
+
+  end
+  
   it "#validate on multiple instances of 'RubyComment' inside a 'RubyPost'" do
 
-    post = RubyPostWithComments.new([{ title: 'force_custom_validation1', email: 'teste4@gmail.com' }, { title: 'force_custom_validation1', email: 'force_custom_validation2@gmail.com' }])
+    post = RubyPostWithComments.new([{ title: 'force_error1', email: 'teste4@gmail.com' }, { title: 'force_error2', email: 'force_error@gmail.com' }])
     context = ValidateComments.perform(post: post)
 
     context.success?.should == false
@@ -63,6 +80,6 @@ describe ValidateComments do
     comment2.errors.size.should == 2
 
   end
-  
+
 end
 

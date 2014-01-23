@@ -3,9 +3,10 @@ require "usecasing-validations/validations/errors"
 require "usecasing-validations/validations/helper_methods"
 require "usecasing-validations/validations/validator"
 
-require "usecasing-validations/validations/presence_validator"
-require "usecasing-validations/validations/length_validator"
 require "usecasing-validations/validations/format_validator"
+require "usecasing-validations/validations/length_validator"
+require "usecasing-validations/validations/presence_validator"
+require "usecasing-validations/validations/uniqueness_validator"
 
 module UseCase
   

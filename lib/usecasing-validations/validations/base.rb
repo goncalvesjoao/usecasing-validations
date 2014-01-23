@@ -12,11 +12,8 @@ module UseCase
         self.class.validators.each do |validator|
           next unless success_of_option_if(validator)
 
-          if validator.method(:validate).arity == 2
-            validator.validate(object_to_validate, self)
-          else
-            validator.validate(object_to_validate)
-          end
+          validator.base = self
+          validator.validate(object_to_validate)
         end
       end
 
