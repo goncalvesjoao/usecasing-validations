@@ -1,4 +1,4 @@
-module UseCase
+module UseCaseValidations
   module Validations
 
     class FormatValidator < EachValidator # :nodoc:
@@ -29,7 +29,7 @@ module UseCase
       end
 
       def record_error(record, attribute, name, value)
-        record.errors.add(attribute, :invalid, HelperMethods._except(options, name).merge!(value: value))
+        record.errors.add(attribute, :invalid, Helpers._except(options, name).merge!(value: value))
       end
 
       def regexp_using_multiline_anchors?(regexp)

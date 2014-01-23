@@ -1,4 +1,4 @@
-require 'usecasing-validations'
+require 'usecasing_validations'
 
 require 'pry'
 

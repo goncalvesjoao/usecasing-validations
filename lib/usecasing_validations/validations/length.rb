@@ -1,4 +1,4 @@
-module UseCase
+module UseCaseValidations
 
   # == Active \Model Length \Validator
   module Validations
@@ -40,7 +40,7 @@ module UseCase
       def validate_each(record, attribute, value)
         value = tokenize(value)
         value_length = value.respond_to?(:length) ? value.length : value.to_s.length
-        errors_options = HelperMethods._except(options, *RESERVED_OPTIONS)
+        errors_options = Helpers._except(options, *RESERVED_OPTIONS)
 
         CHECKS.each do |key, validity_check|
           next unless check_value = options[key]

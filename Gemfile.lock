@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    usecasing-validations (0.3.2)
+    usecasing_validations (0.3.2)
       usecasing (= 0.1.4)
 
 GEM
@@ -37,4 +37,4 @@ DEPENDENCIES
   pry
   rake
   rspec
-  usecasing-validations!
+  usecasing_validations!

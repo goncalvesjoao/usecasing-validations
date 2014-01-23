@@ -1,4 +1,4 @@
-module UseCase
+module UseCaseValidations
   module Validations
 
     class UniquenessValidator < EachValidator
@@ -19,7 +19,7 @@ module UseCase
 
       def records
         if options.key?(:records)
-          HelperMethods._call_proc_or_method(base, options[:records])
+          Helpers._call_proc_or_method(base, options[:records])
         else
           [*base.target]
         end

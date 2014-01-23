@@ -1,9 +1,9 @@
-module UseCase
+module UseCaseValidations
   module Validations
 
     class PresenceValidator < EachValidator # :nodoc:
       def validate_each(record, attr_name, value)
-        record.errors.add(attr_name, :blank, options) if HelperMethods._blank?(value)
+        record.errors.add(attr_name, :blank, options) if Helpers._blank?(value)
       end
     end
 
