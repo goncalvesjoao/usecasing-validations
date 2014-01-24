@@ -18,7 +18,7 @@ module UseCaseValidations
       protected ########################### PROTECTED #######################
 
       def records
-        @records ||= [*base.target].inject([]) do |scoped_list, object|
+        [*base.target].inject([]) do |scoped_list, object|
           scoped_list << object if scope_method(object)
           scoped_list
         end
