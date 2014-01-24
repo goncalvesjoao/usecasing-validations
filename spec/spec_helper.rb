@@ -2,11 +2,10 @@ require 'usecasing_validations'
 
 require 'pry'
 
-require 'support/models/ruby_post'
-require 'support/models/ruby_post_with_comments'
-require 'support/usecases/validate_comments'
-require 'support/usecases/validate_post'
-require 'support/usecases/validate_uniq_comments'
+Dir.chdir("spec/") do
+  Dir["support/models/*.rb"].each { |file| require file }
+  Dir["support/usecases/*.rb"].each { |file| require file }
+end
 
 RSpec.configure do |config|
   config.treat_symbols_as_metadata_keys_with_true_values = true

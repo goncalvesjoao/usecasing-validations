@@ -1,11 +1,11 @@
 require 'spec_helper'
 
-describe ValidateUniqComments do 
+describe 'Several tests to the #validates_uniqueness_of' do 
 
-  it "#validates_uniqueness_of on multiple instances of 'RubyComment' inside a 'RubyPost'" do
+  it "#validates_uniqueness_of basic usage" do
 
     post = RubyPostWithComments.new([{ title: 'title1', email: 'teste1@gmail.com' }, { title: 'title1', email: 'teste2@gmail.com' }])
-    context = ValidateUniqComments.perform(post: post)
+    context = ValidateUniqComments::Basic.perform(post: post)
 
     context.success?.should == false
 
@@ -20,4 +20,3 @@ describe ValidateUniqComments do
   end
 
 end
-
