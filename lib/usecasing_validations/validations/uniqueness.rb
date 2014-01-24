@@ -18,18 +18,18 @@ module UseCaseValidations
       protected ########################### PROTECTED #######################
 
       def records
-        if options.key?(:records)
-          Helpers._call_proc_or_method(base, options[:records])
+        if options.key?(:scope)
+          Helpers._call_proc_or_method(base, options[:scope])
         else
           [*base.target]
         end
       end
 
-      def similar_objects?(record, other_record, attr_or_method)
-        if base.respond_to?(attr_or_method)
-          base.send(attr_or_method, record, other_record)
+      def similar_objects?(record, other_record, attribute)
+        if options.key?(:conditions)
+          base.send(options[:conditions], record, other_record, attribute)
         else
-          record.send(attr_or_method) == other_record.send(attr_or_method)
+          record.send(attribute) == other_record.send(attribute)
         end
       end
 

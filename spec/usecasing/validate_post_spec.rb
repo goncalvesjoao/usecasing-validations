@@ -24,7 +24,7 @@ describe ValidatePost do
 
   end
 
-  it "'#validates_format_of' on a ruby object with the 'if' options", current: true do
+  it "'#validates_format_of' on a ruby object with the 'if' options" do
 
     post = RubyPost.new({ title: "title", body: "body" })
     context = ValidatePost.perform(post: post)
