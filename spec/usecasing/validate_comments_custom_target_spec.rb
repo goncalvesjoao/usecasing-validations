@@ -34,4 +34,3 @@ describe ValidateCommentsCustomTarget do
   end
 
 end
-

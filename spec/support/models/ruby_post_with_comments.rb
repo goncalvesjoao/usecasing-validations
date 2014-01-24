@@ -2,7 +2,7 @@ class RubyPostWithComments
 
   class RubyComment
 
-    attr_accessor :title, :email
+    attr_accessor :title, :email, :post_id
 
     def initialize(attributes = {})
       (attributes || {}).each { |name, value| send("#{name}=", value) }
@@ -15,6 +15,13 @@ class RubyPostWithComments
 
   def initialize(comments = {})
     @comments = comments.map { |comment| RubyComment.new(comment) }
+  end
+
+  def first_two_comments
+    [
+      comments[0],
+      comments[1]
+    ]
   end
 
 end

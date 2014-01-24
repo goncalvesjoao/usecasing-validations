@@ -36,13 +36,13 @@ describe ValidatePost do
     post.errors.added?(:phone_number, :blank).should == true
     post.errors.size.should == 1
 
-    post.phone_number = '9 s'
+    post = RubyPost.new({ title: "title", body: "body", phone_number: '9 s' })
     context = ValidatePost.perform(post: post, validate_phone_number: true)
     context.success?.should == false
     post.errors.added?(:phone_number, "invalid format!").should == true
     post.errors.size.should == 1
 
-    post.phone_number = '9 1'
+    post = RubyPost.new({ title: "title", body: "body", phone_number: '9 1' })
     context = ValidatePost.perform(post: post, validate_phone_number: true)
     context.success?.should == true
     post.errors.empty?.should == true
