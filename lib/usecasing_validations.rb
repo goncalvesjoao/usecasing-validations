@@ -29,7 +29,7 @@ module UseCaseValidations
 
   def run_validations!(object_to_validate)
     self.class.validators.each do |validator|
-      next unless validator.options.key?(:if) && Helpers._call_proc_or_method(self, validator.options[:if])
+      next unless option_if_succeeds(validator)
 
       validator.base = self
       validator.validate(object_to_validate)
@@ -37,21 +37,32 @@ module UseCaseValidations
   end
 
   def valid?(object_to_validate)
-    if !object_to_validate.respond_to?(:errors)
-      object_to_validate.instance_eval do
-        def errors; @errors ||= Errors.new(self); end
-      end
-    end
-    
-    binding.pry
+    extend_errors_if_necessary object_to_validate
 
     object_to_validate.errors.clear if self.class.clear_errors?
 
-    run_validations!(object_to_validate)
+    run_validations! object_to_validate
 
     object_to_validate.errors.empty?
   end
   
+  private ######################## PRIVATE #######################
+
+  def extend_errors_if_necessary(object_to_validate)
+    return true if object_to_validate.respond_to?(:errors)
+
+    object_to_validate.instance_eval do
+      def errors; @errors ||= Errors.new(self); end
+    end
+  end
+
+  def option_if_succeeds(validator)
+    if validator.options.key?(:if)
+      Helpers._call_proc_or_method(self, validator.options[:if])
+    else
+      true
+    end
+  end
 
   module ClassMethods
 
@@ -107,7 +118,7 @@ module UseCaseValidations
     end
 
     # Copy validators on inheritance.
-    def inherited(base) #:nodoc:
+    def inherited(base)
       dup = _validators.dup
       base._validators = dup.each { |k, v| dup[k] = v.dup }
       super
