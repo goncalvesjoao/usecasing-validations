@@ -1,8 +1,4 @@
 class ValidateComments < UseCase::Validator
-  
-  # def target
-  #   context.post.comments
-  # end
 
   target :comments, in: :post
 
@@ -11,8 +7,6 @@ class ValidateComments < UseCase::Validator
   validates_format_of :email, with: /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i, message: "invalid format!"
 
   validates_length_of :title, minimum: 6, allow_nil: true
-
-  validates_uniqueness_of :title
 
   validate :custom_validation1, :custom_validation2
 
