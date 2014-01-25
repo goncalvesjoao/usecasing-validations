@@ -5,7 +5,7 @@ module UseCaseValidations
       def validate_each(record, attribute, value)
 
         records.each do |other_record|
-          next if record == other_record || !scope_method(record)
+          next if record == other_record || Helpers._marked_for_destruction?(other_record) || !scope_method(record)
 
           if similar_objects?(record, other_record, attribute)
             record.errors.add(attribute, :taken, options)
