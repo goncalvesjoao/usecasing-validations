@@ -75,13 +75,14 @@ module UseCaseValidations
     end
 
     def target(object_sym, options = {})
-      define_method(:target) do
-        if options.key?(:in)
-          context.send(options[:in]).send(object_sym)
-        else
-          context.send(object_sym)
-        end
+      if options.key?(:in)
+        define_method(options[:in]) { context.send(options[:in]) }
+        define_method(object_sym) { send(options[:in]).send(object_sym) }
+      else
+        define_method(object_sym) { context.send(object_sym) }
       end
+
+      define_method(:target) { send(object_sym) }
     end
 
     def _validators
