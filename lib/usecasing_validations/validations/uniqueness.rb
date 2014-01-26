@@ -4,8 +4,10 @@ module UseCaseValidations
     class UniquenessValidator < EachValidator
       def validate_each(record, attribute, value)
 
+        return nil unless scope_method(record)
+
         records.each do |other_record|
-          next if record == other_record || Helpers._marked_for_destruction?(other_record) || !scope_method(record)
+          next if record == other_record || Helpers._marked_for_destruction?(other_record) || !scope_method(other_record)
 
           if similar_objects?(record, other_record, attribute)
             record.errors.add(attribute, :taken, options)
