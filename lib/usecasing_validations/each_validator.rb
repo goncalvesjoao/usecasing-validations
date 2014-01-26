@@ -13,7 +13,7 @@ module UseCaseValidations
 
     def validate(record)
       attributes.each do |attribute|
-        value = record.send(attribute)
+        value = record.respond_to?(attribute) ? record.send(attribute) : nil
         next if (value.nil? && options[:allow_nil]) || (Helpers._blank?(value) && options[:allow_blank])
         validate_each(record, attribute, value)
       end
