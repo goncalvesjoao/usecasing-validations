@@ -17,6 +17,7 @@ module UseCaseValidations
         end
 
         define_method(:target) { send(object_sym) }
+        define_method(:target_parent) { options.key?(:in) ? send(options[:in]) : nil }
       end
 
     end
