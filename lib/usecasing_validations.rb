@@ -31,7 +31,7 @@ module UseCaseValidations
 
   def run_validations!(object_to_validate)
     self.class.validators.each do |validator|
-      next unless option_if_succeeds(validator)
+      next unless option_if_succeeds(validator, object_to_validate)
 
       validator.base = self
       validator.validate(object_to_validate)
@@ -58,9 +58,9 @@ module UseCaseValidations
     end
   end
 
-  def option_if_succeeds(validator)
+  def option_if_succeeds(validator, object_to_validate)
     if validator.options.key?(:if)
-      Helpers._call_proc_or_method(self, validator.options[:if])
+      Helpers._call_proc_or_method(self, validator.options[:if], object_to_validate)
     else
       true
     end
