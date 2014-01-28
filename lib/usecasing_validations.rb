@@ -23,7 +23,7 @@ module UseCaseValidations
 
   def self.included(base)
     base.extend(Validations::HelperMethods)
-    base.extend(Target::ClassMethods)
+    base.class_eval { include Target }
     base.extend(ClassMethods)
   end
 

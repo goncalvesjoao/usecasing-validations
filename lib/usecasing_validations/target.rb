@@ -6,18 +6,27 @@ module UseCaseValidations
       base.extend(ClassMethods)
     end
 
+    def target
+      send(self.class.target_sym)
+    end
+
+    def parent_target
+      self.class.options.key?(:in) ? send(self.class.options[:in]) : nil
+    end
+
     module ClassMethods
+
+      attr_reader :target_sym, :options
       
-      def target(object_sym, options = {})
+      def target(target_sym, options = {})
+        @target_sym, @options = target_sym, options
+
         if options.key?(:in)
           define_method(options[:in]) { context.send(options[:in]) }
-          define_method(object_sym) { send(options[:in]).send(object_sym) }
+          define_method(target_sym) { send(options[:in]).send(target_sym) }
         else
-          define_method(object_sym) { context.send(object_sym) }
+          define_method(target_sym) { context.send(target_sym) }
         end
-
-        define_method(:target) { send(object_sym) }
-        define_method(:parent_target) { options.key?(:in) ? send(options[:in]) : nil }
       end
 
     end
