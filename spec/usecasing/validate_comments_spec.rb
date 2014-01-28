@@ -64,5 +64,14 @@ describe ValidateComments do
 
   end
 
+  it "validating a empty target" do
+
+    post = RubyPostWithComments.new
+    context = ValidateComments.perform(post: post)
+
+    context.success?.should == true
+
+  end
+
 end
 

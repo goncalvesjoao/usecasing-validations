@@ -15,6 +15,7 @@ class RubyPostWithComments
 
   def initialize(comments = {})
     @comments = comments.map { |comment| RubyComment.new(comment) }
+    @comments = [] if @comments.nil?
   end
 
   def first_two_comments

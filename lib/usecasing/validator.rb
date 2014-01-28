@@ -7,8 +7,12 @@ module UseCase
     def perform
       targets = [*target]
 
-      if targets.empty?
+      if target.nil?
         all_validations_green = false
+
+      elsif targets.empty?
+        all_validations_green = true
+        
       else
         all_validations_green = targets.map do |object_to_validate|
           if Helpers._marked_for_destruction?(object_to_validate)
