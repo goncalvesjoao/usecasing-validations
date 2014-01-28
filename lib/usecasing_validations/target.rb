@@ -6,12 +6,20 @@ module UseCaseValidations
       base.extend(ClassMethods)
     end
 
+    def target_sym
+      self.class.target_sym
+    end
+
+    def parent_target_sym
+      self.class.options.key?(:in) ? self.class.options[:in] : nil
+    end
+
     def target
-      send(self.class.target_sym)
+      send(target_sym)
     end
 
     def parent_target
-      self.class.options.key?(:in) ? send(self.class.options[:in]) : nil
+      parent_target_sym ? send(parent_target_sym) : nil
     end
 
     module ClassMethods
