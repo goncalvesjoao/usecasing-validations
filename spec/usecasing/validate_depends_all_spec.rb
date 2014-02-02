@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe Group::ValidateDependsAll do 
 
-  it "Validating multiple UseCase:Validators at the same time without one interrupting the other" do
+  it "Validating multiple UseCase:Validators at the same time without one interrupting the other", current: true do
 
     post = RubyPost.new
     context = Group::ValidateDependsAll.perform(post: post)
