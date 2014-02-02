@@ -16,6 +16,7 @@ require "usecasing_validations/validations/uniqueness"
 
 module UseCase
   autoload :Validator, 'usecasing/validator'
+  autoload :DependsAll, 'usecasing/depends_all'
 end
 
 
