@@ -15,38 +15,8 @@ require "usecasing_validations/validations/uniqueness"
 
 
 module UseCase
-  
-  class Base
-
-    def self.depends_all(*deps)
-      @dependencies ||= []
-      @dependencies.push(*deps)
-      ignored_dependencies.push(*deps)
-    end
-
-    def self.ignored_dependencies
-      @ignored_dependencies ||= []
-    end
-
-    def self.not_ignored(usecase)
-      !ignored_dependencies.include?(usecase)
-    end
-  
-    def self.tx(execution_order, context)
-      ctx = Context.new(context)
-      executed = []
-      execution_order.each do |usecase|
-        break if not_ignored(usecase) && !ctx.success?
-        executed.push(usecase)
-        yield usecase, ctx
-      end
-      rollback(executed, ctx) unless ctx.success?
-      ctx
-    end
-
-  end
-
   autoload :Validator, 'usecasing/validator'
+  autoload :GroupValidator, 'usecasing/group_validator'
 end
 
 

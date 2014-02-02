@@ -16,7 +16,7 @@ module Group
 
   end
 
-  class ValidateDependsAll < UseCase::Base
+  class ValidateAll < UseCase::GroupValidator
 
     depends_all ValidatePostTitle, ValidatePostBody
 
