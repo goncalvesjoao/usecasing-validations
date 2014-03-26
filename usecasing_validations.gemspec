@@ -24,6 +24,6 @@ Gem::Specification.new do |gem|
   gem.add_development_dependency "mocha"
   gem.add_development_dependency "pry"
   
-  gem.add_runtime_dependency   'usecasing', '0.1.4'
+  gem.add_runtime_dependency   'usecasing'
 
 end

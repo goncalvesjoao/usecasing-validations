@@ -1,5 +1,5 @@
 module UseCaseValidations
-
+  
   module Helpers
 
     extend self
