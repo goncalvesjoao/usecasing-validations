@@ -1,8 +1,32 @@
 module UseCaseValidations
-  
+
   module Helpers
 
     extend self
+
+    def _super_method(object, method_name, *args)
+      if object.superclass.respond_to?(method_name)
+        object.superclass.send(method_name, *args)
+      end
+    end
+
+    def _get_instance_variable(object, variable, default_value)
+      instance_var = object.instance_variable_get("@#{variable}")
+
+      return instance_var unless instance_var.nil?
+
+      instance_var = (_super_method(object, variable) || default_value)
+
+      if instance_var.class == Class
+        object.instance_variable_set("@#{variable}", instance_var)
+      else
+        object.instance_variable_set("@#{variable}", _duplicate(instance_var))
+      end
+    end
+
+    def _duplicate(object)
+      object.dup rescue object
+    end
 
     def _blank?(object)
       if object.is_a?(String)
@@ -15,7 +39,7 @@ module UseCaseValidations
     def _marked_for_destruction?(object)
       object.respond_to?(:marked_for_destruction?) ? object.marked_for_destruction? : false
     end
-  
+
     def _extract_options!(array)
       if array.last.is_a?(Hash) && array.last.instance_of?(Hash)
         array.pop

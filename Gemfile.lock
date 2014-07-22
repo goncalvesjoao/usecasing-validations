@@ -1,8 +1,8 @@
 PATH
   remote: .
   specs:
-    usecasing_validations (0.5.1)
-      usecasing (= 0.1.4)
+    usecasing_validations (0.5.3)
+      usecasing
 
 GEM
   remote: https://rubygems.org/
