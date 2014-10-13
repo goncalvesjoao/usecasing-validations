@@ -8,8 +8,8 @@ Gem::Specification.new do |gem|
   gem.version       = UseCaseValidations::VERSION
   gem.authors       = ["João Gonçalves"]
   gem.email         = ["goncalves.joao@gmail.com"]
-  gem.description   = %q{UseCase Gem Extention to add Rails like validations}
-  gem.summary       = %q{UseCase Gem Extention to add Rails like validations}
+  gem.description   = "UseCase Gem Extention to add Rails like validations"
+  gem.summary       = "UseCase Gem Extention to add Rails like validations without Rails, only needs Ruby and usecasing gem"
   gem.homepage      = "https://github.com/goncalvesjoao/usecasing-validations"
   gem.license       = "MIT"
 
@@ -17,13 +17,6 @@ Gem::Specification.new do |gem|
   gem.executables   = gem.files.grep(%r{^bin/}).map{ |f| File.basename(f) }
   gem.test_files    = gem.files.grep(%r{^(test|spec|features)/})
   gem.require_paths = ["lib"]
-  
-  #development dependecy
-  gem.add_development_dependency "rspec"
-  gem.add_development_dependency "rake"
-  gem.add_development_dependency "mocha"
-  gem.add_development_dependency "pry"
-  
-  gem.add_runtime_dependency   'usecasing'
 
+  gem.add_runtime_dependency 'usecasing', "~> 0.1"
 end
