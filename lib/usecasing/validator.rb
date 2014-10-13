@@ -1,9 +1,9 @@
 module UseCase
-  
-  class Validator < Base
+
+  class Validator < ValidatorBase
 
     include UseCaseValidations
-    
+
     def perform
       targets = [*target]
 
@@ -12,7 +12,7 @@ module UseCase
 
       elsif targets.empty?
         all_validations_green = true
-        
+
       else
         all_validations_green = targets.map do |object_to_validate|
           if Helpers._marked_for_destruction?(object_to_validate)
@@ -23,7 +23,7 @@ module UseCase
         end.all?
       end
 
-      failure(self.class.to_s.downcase.to_sym, :failed) unless all_validations_green
+      call_failure(:unprocessable_entity, self.class.to_s.downcase.to_sym) unless all_validations_green
     end
 
   end

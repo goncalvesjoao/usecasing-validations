@@ -15,6 +15,7 @@ require "usecasing_validations/validations/uniqueness"
 
 
 module UseCase
+  autoload :ValidatorBase, 'usecasing/validator_base'
   autoload :Validator, 'usecasing/validator'
   autoload :GroupValidator, 'usecasing/group_validator'
 end
@@ -48,7 +49,7 @@ module UseCaseValidations
 
     object_to_validate.errors.empty?
   end
-  
+
   private ######################## PRIVATE #######################
 
   def extend_errors_if_necessary(object_to_validate)
@@ -92,7 +93,7 @@ module UseCaseValidations
     def validates_with(*args, &block)
       options = Helpers._extract_options!(args)
       options[:class] = self
-      
+
       args.each do |klass|
         validator = klass.new(options, &block)
 

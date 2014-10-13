@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    usecasing_validations (0.5.3)
+    usecasing_validations (0.5.5)
       usecasing
 
 GEM
@@ -27,7 +27,7 @@ GEM
       diff-lcs (>= 1.1.3, < 2.0)
     rspec-mocks (2.14.4)
     slop (3.4.7)
-    usecasing (0.1.4)
+    usecasing (0.1.10)
 
 PLATFORMS
   ruby

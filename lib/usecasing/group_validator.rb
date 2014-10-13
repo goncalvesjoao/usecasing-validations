@@ -1,6 +1,6 @@
 module UseCase
-  
-  class GroupValidator < Base
+
+  class GroupValidator < ValidatorBase
 
     def perform
       usecases_vs_results = {}
@@ -10,7 +10,7 @@ module UseCase
       end
 
       usecases_vs_results.each do |usecase_name, result|
-        failure(usecase_name, :failed) unless result
+        call_failure(:unprocessable_entity, usecase_name) unless result
       end
     end
 
@@ -18,9 +18,8 @@ module UseCase
       group_dependencies.push(*new_dependencies)
     end
 
-
     protected ####################### PROTECTED #################
-    
+
     def context_to_hash
       context.instance_variable_get('@values')
     end
