@@ -1,6 +1,6 @@
 module UseCase
 
-  class GroupValidator < ValidatorBase
+  class GroupValidator < ValidatorParent
 
     def perform
       usecases_vs_results = {}

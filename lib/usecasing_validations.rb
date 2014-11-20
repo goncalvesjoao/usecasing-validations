@@ -15,7 +15,7 @@ require "usecasing_validations/validations/uniqueness"
 
 
 module UseCase
-  autoload :ValidatorBase, 'usecasing/validator_base'
+  autoload :ValidatorParent, 'usecasing/validator_parent'
   autoload :Validator, 'usecasing/validator'
   autoload :GroupValidator, 'usecasing/group_validator'
 end

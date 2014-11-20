@@ -1,6 +1,6 @@
 module UseCase
 
-  class ValidatorBase < Base
+  class ValidatorParent < Base
 
     def call_failure(status, message = nil)
       if respond_to?(:failure!)

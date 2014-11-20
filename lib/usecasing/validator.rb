@@ -1,6 +1,6 @@
 module UseCase
 
-  class Validator < ValidatorBase
+  class Validator < ValidatorParent
 
     include UseCaseValidations
 
