@@ -61,6 +61,12 @@ module UseCaseValidations
       _hash
     end
 
+    def _slice(hash, *keys)
+      _hash = {}
+      keys.each { |key| _hash[key] = hash[key] }
+      _hash
+    end
+
     def _call_proc_or_method(base, proc_or_method, object = nil)
       if object.nil?
         proc_or_method.is_a?(Proc) ? base.instance_exec(&proc_or_method) : base.send(proc_or_method)

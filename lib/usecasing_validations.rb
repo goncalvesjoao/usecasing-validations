@@ -12,6 +12,7 @@ require "usecasing_validations/validations/format"
 require "usecasing_validations/validations/length"
 require "usecasing_validations/validations/presence"
 require "usecasing_validations/validations/uniqueness"
+require "usecasing_validations/validations/numericality"
 
 
 module UseCase

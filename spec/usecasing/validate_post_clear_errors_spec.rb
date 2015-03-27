@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe ValidatePostClearErrors do 
+describe ValidatePostClearErrors do
 
   it "#clean_Errors! will force the #valid? method to clear the target's errors at the start" do
 
@@ -28,19 +28,22 @@ describe ValidatePostClearErrors do
 
   it "By default a Validator Class should not clean the target's errors" do
 
-    post = RubyPost.new(body: 'body')
+    post = RubyPost.new(body: 'body', phone_number: 10)
     context = ValidatePost.perform(post: post)
     context.success?.should == false
     post.errors.added?(:title, "can't be blank!").should == true
-    post.errors.size.should == 1
+    post.errors.added?(:phone_number, :greater_than).should == true
+    post.errors.size.should == 2
 
     post.title = 'title'
     post.body = ''
+    post.phone_number = 11
     context = ValidatePost.perform(post: post)
     context.success?.should == false
     post.errors.added?(:title, "can't be blank!").should == true
     post.errors.added?(:body, "can't be blank!").should == true
-    post.errors.size.should == 2
+    post.errors.added?(:phone_number, :greater_than).should == true
+    post.errors.size.should == 3
 
   end
 
